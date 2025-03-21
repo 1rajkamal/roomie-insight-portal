@@ -4,21 +4,20 @@ import { motion } from 'framer-motion';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { 
   ArrowLeft, Mail, Phone, MapPin, GraduationCap, 
-  Home, Calendar, Building2, Share2
+  Home, Calendar, Building2, Share2, User
 } from 'lucide-react';
 import { getStudentById, getRoomByNumber, rooms, students } from '@/lib/data';
 import Header from '@/components/Header';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/components/ui/use-toast';
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 
 const StudentDetail = () => {
   const { studentId } = useParams<{ studentId: string }>();
   const [student, setStudent] = useState(students.find((s) => s.id === studentId));
   const [room, setRoom] = useState(rooms.find((r) => r.students.some((s) => s.id === studentId)));
   const [isLoaded, setIsLoaded] = useState(false);
-  const [imageLoaded, setImageLoaded] = useState(false);
   const navigate = useNavigate();
   const { toast } = useToast();
   
@@ -98,12 +97,6 @@ const StudentDetail = () => {
                       
                       <div className="relative inline-block mb-4">
                         <Avatar className="w-24 h-24 border-4 border-background">
-                          <AvatarImage 
-                            src={student.photo} 
-                            alt={student.name} 
-                            className={!imageLoaded ? "blur-load" : ""}
-                            onLoad={() => setImageLoaded(true)}
-                          />
                           <AvatarFallback>
                             {student.name.split(' ').map(n => n[0]).join('')}
                           </AvatarFallback>

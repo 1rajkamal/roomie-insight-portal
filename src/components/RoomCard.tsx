@@ -1,5 +1,4 @@
 
-import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Users, ChevronRight } from 'lucide-react';
 import { Room } from '@/lib/data';
@@ -12,8 +11,6 @@ interface RoomCardProps {
 }
 
 const RoomCard = ({ room, className }: RoomCardProps) => {
-  const [imageLoaded, setImageLoaded] = useState(false);
-  
   const occupancyPercentage = (room.occupiedCount / room.capacity) * 100;
   
   return (
@@ -53,14 +50,6 @@ const RoomCard = ({ room, className }: RoomCardProps) => {
                 key={student.id} 
                 className="flex items-center rounded-full px-3 py-1 bg-accent/50 hover:bg-accent transition-colors"
               >
-                <div className="w-6 h-6 rounded-full overflow-hidden mr-2">
-                  <img 
-                    src={student.photo} 
-                    alt={student.name}
-                    className={cn("w-full h-full object-cover", !imageLoaded && "blur-load")}
-                    onLoad={() => setImageLoaded(true)}
-                  />
-                </div>
                 <span className="text-xs">{student.name}</span>
               </div>
             ))}
