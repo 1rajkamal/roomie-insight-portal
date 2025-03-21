@@ -1,7 +1,6 @@
 
-import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { GraduationCap, MapPin, Mail, Phone, ChevronRight } from 'lucide-react';
+import { GraduationCap, MapPin, Mail, Phone, ChevronRight, User } from 'lucide-react';
 import { Student } from '@/lib/data';
 import { Badge } from '@/components/ui/badge';
 import { cn } from '@/lib/utils';
@@ -13,8 +12,6 @@ interface StudentCardProps {
 }
 
 const StudentCard = ({ student, className, detailed = false }: StudentCardProps) => {
-  const [imageLoaded, setImageLoaded] = useState(false);
-  
   return (
     <Link 
       to={`/student/${student.id}`} 
@@ -25,18 +22,10 @@ const StudentCard = ({ student, className, detailed = false }: StudentCardProps)
     >
       <div className="flex flex-col lg:flex-row">
         <div className={cn(
-          "relative overflow-hidden",
+          "relative overflow-hidden bg-muted flex items-center justify-center",
           detailed ? "lg:w-1/3 h-64 lg:h-auto" : "h-40"
         )}>
-          <img 
-            src={student.photo} 
-            alt={student.name} 
-            className={cn(
-              "w-full h-full object-cover transition-transform duration-500 group-hover:scale-105",
-              !imageLoaded && "blur-load"
-            )}
-            onLoad={() => setImageLoaded(true)}
-          />
+          <User className="h-20 w-20 text-muted-foreground" />
           <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
         </div>
         
